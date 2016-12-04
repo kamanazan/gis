@@ -1,101 +1,192 @@
-<!doctype html>
+{% load static %}
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script>
-var map;
-function initialize() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: new google.maps.LatLng(-6.9404887, 107.6068378),
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-         styles: [
-            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-             {
-              featureType: 'administrative.locality',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'geometry',
-              stylers: [{color: '#263c3f'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#6b9a76'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry',
-              stylers: [{color: '#38414e'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#212a37'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#9ca5b3'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry',
-              stylers: [{color: '#746855'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#1f2835'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#f3d19c'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'geometry',
-              stylers: [{color: '#17263c'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#515c6d'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.stroke',
-              stylers: [{color: '#17263c'}]
-            }
-          ]
-    });
-}
-</script>
-<style>
-    #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-</style>
+<link href="{% static 'bandungis/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'bandungis/lib/openlayers/css/ol.css' %}" rel="stylesheet"/>
+<script type="text/javascript" src="{% static 'bandungis/lib/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bandungis/lib/bootstrap/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bandungis/lib/openlayers/js/ol-debug.js' %}"></script>
+<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 </head>
-<body onload='initialize()'>
-    <div id=map></div>
+<!---->
+<body>
+    <nav role="navigation" class="navbar navbar-default">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">PETA DASAR</a>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <div id="info">
+                Pilih layer
+                </div>
+            </div>
+            <div class="col-md-10 main-content">
+                <div id="map" class="map"></div>
+                <script>
+
+                    var style = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                          color: 'rgba(255, 255, 255, 0.6)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                          color: '#319FD3',
+                          width: 1
+                        }),
+                        text: new ol.style.Text({
+                          font: '12px Calibri,sans-serif',
+                          fill: new ol.style.Fill({
+                            color: '#000'
+                          }),
+                          stroke: new ol.style.Stroke({
+                            color: '#fff',
+                            width: 3
+                          })
+                        })
+                        });
+                    var style2 = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                          color: 'rgba(255, 255, 255, 0.6)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                          color: '# #DAF7A6 ',
+                          width: 1
+                        }),
+                        text: new ol.style.Text({
+                          font: '12px Calibri,sans-serif',
+                          fill: new ol.style.Fill({
+                            color: '#000'
+                          }),
+                          stroke: new ol.style.Stroke({
+                            color: '#fff',
+                            width: 3
+                          })
+                        })
+                        });
+                    var kabupatenLayer = new ol.layer.Vector({
+                        source: new ol.source.Vector({
+                        url: '{% static 'bandungis/data/kabupaten.geojson' %}',
+                        format: new ol.format.GeoJSON(),
+
+                        }),
+                        style: function(feature, resolution) {
+                          style.getText().setText(resolution < 128 ? feature.get('name') : '');
+                          return style;
+                        }
+                        });
+
+                    var kecamatanLayer = new ol.layer.Vector({
+                        source: new ol.source.Vector({
+                        url: '{% static 'bandungis/data/kecamatan.geojson' %}',
+                        format: new ol.format.GeoJSON(),
+
+                        }),
+                        style: function(feature, resolution) {
+                          style2.getText().setText(resolution < 128 ? feature.get('name') : '');
+                          return style2;
+                        }
+                        });
+
+            var map = new ol.Map({
+                        layers: [
+                          new ol.layer.Tile({
+                        title: 'Stamen - Water color',
+                        type: 'base',
+                        source: new ol.source.Stamen({
+                            layer: 'terrain'
+                        })
+                    }),
+                          kabupatenLayer,
+                          kecamatanLayer
+                        ],
+                        target: 'map',
+                        controls: ol.control.defaults({
+                          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+                            collapsible: false
+                          })
+                        }),
+                        view: new ol.View({
+                          center: ol.proj.transform([107.5853139, -6.9840138], 'EPSG:4326', 'EPSG:3857'),
+                          zoom: 11,
+                          minZoom: 9,
+                          maxZoom: 13
+                        })
+                      });
+                        var highlightStyleCache = {};
+
+      var featureOverlay = new ol.layer.Vector({
+        source: new ol.source.Vector(),
+        map: map,
+        style: function(feature, resolution) {
+          var text = resolution < 5000 ? feature.get('name') : '';
+          if (!highlightStyleCache[text]) {
+            highlightStyleCache[text] = new ol.style.Style({
+              stroke: new ol.style.Stroke({
+                color: '#f00',
+                width: 1
+              }),
+              fill: new ol.style.Fill({
+                color: 'rgba(255,0,0,0.1)'
+              }),
+              text: new ol.style.Text({
+                font: '12px Calibri,sans-serif',
+                text: text,
+                fill: new ol.style.Fill({
+                  color: '#000'
+                }),
+                stroke: new ol.style.Stroke({
+                  color: '#f00',
+                  width: 3
+                })
+              })
+            });
+          }
+          return highlightStyleCache[text];
+        }
+      });
+
+      var highlight;
+      var displayFeatureInfo = function(pixel) {
+
+        var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
+          return feature;
+        });
+
+        var info = document.getElementById('info');
+        if (feature) {
+          info.innerHTML = feature.getId() + ': ' + feature.get('name');
+        } else {
+          info.innerHTML = '&nbsp;';
+        }
+
+        if (feature !== highlight) {
+          if (highlight) {
+            featureOverlay.getSource().removeFeature(highlight);
+          }
+          if (feature) {
+            featureOverlay.getSource().addFeature(feature);
+          }
+          highlight = feature;
+        }
+
+      };
+
+      map.on('pointermove', function(evt) {
+        if (evt.dragging) {
+          return;
+        }
+        var pixel = map.getEventPixel(evt.originalEvent);
+        displayFeatureInfo(pixel);
+      });
+
+      map.on('click', function(evt) {
+        displayFeatureInfo(evt.pixel);
+      });
+                </script>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
