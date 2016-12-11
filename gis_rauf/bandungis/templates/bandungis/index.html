@@ -5,10 +5,48 @@
 <link href="{% static 'bandungis/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
 <link href="{% static 'bandungis/lib/openlayers/css/ol.css' %}" rel="stylesheet"/>
 <link href="{% static 'bandungis/lib/ol3-layerswitcher/css/ol3-layerswitcher.css' %}" rel="stylesheet"/>
+<link href="{% static 'bandungis/lib/ol3-extended/css/layerswitchercontrol.css' %}" rel="stylesheet"/>
+<link href="{% static 'bandungis/lib/ol3-extended/css/style.css' %}" rel="stylesheet"/>
+<style>
+		.hideOpacity .layerswitcher-opacity
+		{	display:none;
+		}
+		.hideOpacity .ol-layerswitcher .layerup
+		{	height: 1.5em;
+		}
+
+		.ol-header > div
+		{	width:100%;
+		}
+		.toggleVisibility
+		{	padding-left: 1.6em;
+			cursor: pointer;
+			border-bottom: 2px solid #369;
+			margin-bottom: 0.5em;
+		}
+		.toggleVisibility:before
+		{	background-color: #fff;
+			border: 2px solid #369;
+			box-sizing: border-box;
+			content: "";
+			display: block;
+			height: 1.2em;
+			left: 0.6em;
+			margin: 0;
+			position: absolute;
+			width: 1.2em;
+		}
+		.toggleVisibility.show:before
+		{	background: #369;
+		}
+
+	</style>
+
 <script type="text/javascript" src="{% static 'bandungis/lib/jquery/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bandungis/lib/bootstrap/js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bandungis/lib/openlayers/js/ol-debug.js' %}"></script>
 <script type="text/javascript" src="{% static 'bandungis/lib/ol3-layerswitcher/js/ol3-layerswitcher.js' %}"></script>
+<script type="text/javascript" src="{% static 'bandungis/lib/ol3-extended/js/layerswitchercontrol.js' %}"></script>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 </head>
 <!---->
@@ -18,18 +56,7 @@
             <a href="#" class="navbar-brand">PETA DASAR</a>
         </div>
     </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 sidebar">
-                <div id="info">
-                Pilih layer
-                </div>
-            </div>
-            <div class="col-md-10 main-content">
-                <div id="map" class="map"></div>
-                <script type="text/javascript" src="{% static 'bandungis/js/bandungis.js' %}"></script>
-            </div>
-        </div>
-    </div>
+    <div id="map" class="map"></div>
+    <script type="text/javascript" src="{% static 'bandungis/js/bandungis.js' %}"></script>
 </body>
 </html>
