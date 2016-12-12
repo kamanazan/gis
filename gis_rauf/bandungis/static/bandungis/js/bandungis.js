@@ -261,7 +261,7 @@ var polaPariwisataLayer = new ol.layer.Image({
         url: 'http://128.199.100.103:8080/geoserver/wms',
         params: {
             'LAYERS': 'SIMATARU:pola_pariwisata',
-            'FORMAT': 'img/png'
+            'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
     })
@@ -273,7 +273,7 @@ var polaProvinsiLayer = new ol.layer.Image({
         url: 'http://128.199.100.103:8080/geoserver/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_provinsi',
-            'FORMAT': 'img/png'
+            'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
     })
@@ -285,7 +285,7 @@ var polaPemerintahanLayer = new ol.layer.Image({
         url: 'http://128.199.100.103:8080/geoserver/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_pemerintahan',
-            'FORMAT': 'img/png'
+            'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
     })
@@ -297,7 +297,7 @@ var polaRuangLayer = new ol.layer.Image({
         url: 'http://128.199.100.103:8080/geoserver/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_ruang',
-            'FORMAT': 'img/png'
+            'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
     })
@@ -309,7 +309,7 @@ var polaTambangLayer = new ol.layer.Image({
         url: 'http://128.199.100.103:8080/geoserver/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_tambang',
-            'FORMAT': 'img/png'
+            'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
     })
