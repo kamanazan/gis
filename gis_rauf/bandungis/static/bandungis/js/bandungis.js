@@ -319,15 +319,14 @@ var polaTambangLayer = new ol.layer.Image({
 var petaDasar = new ol.layer.Group({
     title: 'Peta Administratif',
     openInLayerSwitcher: true,
-    layers: [kabupatenLayer, kabupatenBatasLayer, kecamatanLayer, kecamatanBatasLayer, desaLayer, desaBatasLayer, provinsiLayer, pemerintahanLayer, jalanLayer, sungaiLayer]
+    layers: [kabupatenBatasLayer, kecamatanBatasLayer, desaLayer, desaBatasLayer, pemerintahanLayer, jalanLayer, sungaiLayer]
 });
 
 var petaPola = new ol.layer.Group({
     title: 'Peta Rancang Pola',
     openInLayerSwitcher: true,
-    layers: [polaProvinsiLayer, polaRuangLayer, polaDesaLayer, polaDesaBatasLayer, polaKecamatanLayer,
-    polaKecamatanBatasLayer, polaKabupatenLayer, polaKabupatenBatasLayer, polaSungaiLayer, polaJalanLayer,
-    polaTambangLayer, polaEnergiIndukLayer, polaAreaPariwisataLayer, polaPemerintahanLayer, polaKeretaJalurLayer,
+    layers: [polaRuangLayer,
+    polaTambangLayer, polaEnergiIndukLayer, polaAreaPariwisataLayer, polaKeretaJalurLayer,
     polaPariwisataLayer,
     ]
 })
