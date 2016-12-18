@@ -581,20 +581,6 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 			layer.layerswitcher_progress = $("<div>").appendTo(p);
 		}
 
-		// Opacity
-		var opacity = $("<div>").addClass("layerswitcher-opacity")
-				.on("click", function(e)
-				{	e.stopPropagation();
-					e.preventDefault();
-					var x = e.pageX || e.originalEvent.touches[0].pageX;
-					var dx = Math.max ( 0, Math.min( 1, (x - $(this).offset().left) / $(this).width() ));
-					$(this).closest("li").data('layer').setOpacity(dx);
-				})
-				.appendTo(d);
-		$("<div>").addClass("layerswitcher-opacity-cursor")
-				.on("mousedown touchstart", { self: this }, self.dragOpacity_ )
-				.css ('left', (layer.getOpacity()*100)+"%")
-				.appendTo(opacity);
 
 		// Layer group
 		if (layer.getLayers)

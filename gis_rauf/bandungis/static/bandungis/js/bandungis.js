@@ -131,7 +131,8 @@ var polaAreaPariwisataLayer = new ol.layer.Image({
             'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 
 var polaSungaiLayer = new ol.layer.Image({
@@ -155,7 +156,8 @@ var polaDesaLayer = new ol.layer.Image({
             'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 
 var polaDesaBatasLayer = new ol.layer.Image({
@@ -318,26 +320,26 @@ var polaTambangLayer = new ol.layer.Image({
 
 var petaDasar = new ol.layer.Group({
     title: 'Peta Administratif',
-    openInLayerSwitcher: true,
-    layers: [kabupatenBatasLayer, kecamatanBatasLayer, desaLayer, desaBatasLayer, pemerintahanLayer, jalanLayer, sungaiLayer]
+    openInLayerSwitcher: false,
+    visible: false,
+    layers: [kecamatanLayer, desaLayer, jalanLayer, sungaiLayer, pemerintahanLayer, kabupatenLayer]
 });
 
 var petaPola = new ol.layer.Group({
     title: 'Peta Rancang Pola',
-    openInLayerSwitcher: true,
-    layers: [polaRuangLayer,
-    polaTambangLayer, polaEnergiIndukLayer, polaAreaPariwisataLayer, polaKeretaJalurLayer,
-    polaPariwisataLayer,
-    ]
+    openInLayerSwitcher: false,
+    layers: [polaRuangLayer, polaTambangLayer, polaEnergiIndukLayer, polaAreaPariwisataLayer, polaKeretaJalurLayer]
 })
 
 var map = new ol.Map({
     layers: [
         new ol.layer.Group({
             'title': 'Petanya',
+            displayInLayerSwitcher: false,
             layers: [
                 new ol.layer.Tile({
                     title: 'Stamen - Water color',
+                    displayInLayerSwitcher: false,
                     type: 'base',
                     source: new ol.source.Stamen({
                         layer: 'terrain'
@@ -349,14 +351,11 @@ var map = new ol.Map({
         petaPola
     ],
     target: 'map',
-    controls: ol.control.defaults().extend([// Add a new Layerswitcher to the map
-        new ol.control.LayerSwitcher()
-    ]),
     view: new ol.View({
       center: ol.proj.transform([107.5853139, -6.9840138], 'EPSG:4326', 'EPSG:3857'),
       zoom: 11,
       minZoom: 9,
-      maxZoom: 13
+      maxZoom: 17
     })
 });
 // Add a layer switcher outside the map
@@ -364,8 +363,8 @@ var switcher = new ol.control.LayerSwitcher({
     target:$(".layerSwitcher").get(0),
     show_progress:true,
     extent: true,
-    trash: true,
-    oninfo: function (l) { alert(l.get("title")); }
+    trash: false,
+    reordering: false
 });
 
 map.addControl(switcher);
@@ -374,3 +373,64 @@ function displayInLayerSwitcher(b)
 {
     mapbox.set('displayInLayerSwitcher', b);
 }
+
+kab = [
+"Kab. Ciamis",
+"Kab. Cianjur",
+"Kab. Cirebon",
+"Kab. Garut",
+"Kab. Indramayu",
+"Kab. Karawang",
+"Kab. Kuningan",
+"Kab. Majalengka",
+"Kab. Pangandaran",
+"Kab. Purwakarta",
+"Kab. Subang",
+"Kab. Sukabumi",
+"Kab. Sumedang",
+"Kab. Tasikmalaya",
+"Kota Bandung",
+"Kota Banjar",
+"Kota Bekasi",
+"Kota Bogor",
+"Kota Cimahi",
+"Kota Cirebon",
+"Kota Depok",
+"Kota Sukabumi",
+"Kota Tasikmalaya",
+];
+kec = [
+"Kecamatan Arjasari",
+"Kecamatan Baleendah",
+"Kecamatan Banjaran",
+"Kecamatan Bojongsoang",
+"Kecamatan Cangkuang",
+"Kecamatan Cicalengka",
+"Kecamatan Cikancung",
+"Kecamatan Cilengkrang",
+"Kecamatan Cileunyi",
+"Kecamatan Cimaung",
+"Kecamatan Cimenyan",
+"Kecamatan Ciparay",
+"Kecamatan Ciwidey",
+"Kecamatan DayeuhKolot",
+"Kecamatan Ibun",
+"Kecamatan Katapang",
+"Kecamatan Kertasari",
+"Kecamatan Kutawaringin",
+"Kecamatan Majalaya",
+"Kecamatan Margaasih",
+"Kecamatan Margahayu",
+"Kecamatan Nagreg",
+"Kecamatan Pacet",
+"Kecamatan Pameungpeuk",
+"Kecamatan Pangalengan",
+"Kecamatan Paseh",
+"Kecamatan Pasirjambu",
+"Kecamatan Rancabali",
+"Kecamatan Rancaekek",
+"Kecamatan Solokanjeruk",
+"Kecamatan Soreang",
+];
+$( "#cari_kecamatan" ).autocomplete({source: kec});
+$( "#cari_kabupaten" ).autocomplete({source: kab});

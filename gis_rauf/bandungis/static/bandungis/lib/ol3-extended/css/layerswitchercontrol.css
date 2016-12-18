@@ -215,7 +215,7 @@
 
 .ol-layerswitcher-buttons 
 {	display:block;
-	float: right;
+	float: left;
 	text-align:right;
 }
 .ol-layerswitcher-buttons > div
