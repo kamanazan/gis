@@ -33,7 +33,8 @@ var kecamatanLayer = new ol.layer.Image({
                 'FORMAT': 'image/png'
             },
             serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 
 var kecamatanBatasLayer = new ol.layer.Image({
@@ -45,7 +46,8 @@ var kecamatanBatasLayer = new ol.layer.Image({
                 'FORMAT': 'image/png'
             },
             serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 
 var desaLayer = new ol.layer.Image({
@@ -57,7 +59,8 @@ var desaLayer = new ol.layer.Image({
             'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 
 var desaBatasLayer = new ol.layer.Image({
@@ -117,7 +120,8 @@ var pemerintahanLayer = new ol.layer.Image({
             'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 
 //Layer untuk pola ruang
@@ -181,7 +185,8 @@ var polaEnergiIndukLayer = new ol.layer.Image({
             'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 
 var polaJalanLayer = new ol.layer.Image({
@@ -314,14 +319,15 @@ var polaTambangLayer = new ol.layer.Image({
             'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 // Deklarasi layer group untuk peta dasar
 
 var petaDasar = new ol.layer.Group({
     title: 'Peta Administratif',
     openInLayerSwitcher: false,
-    visible: false,
+    visible: true,
     layers: [kecamatanLayer, desaLayer, jalanLayer, sungaiLayer, pemerintahanLayer, kabupatenLayer]
 });
 
