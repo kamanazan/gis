@@ -34,7 +34,7 @@ var kecamatanLayer = new ol.layer.Image({
             },
             serverType: 'geoserver'
     }),
-    visible: false
+    visible: true
 });
 
 var kecamatanBatasLayer = new ol.layer.Image({
@@ -84,7 +84,8 @@ var jalanLayer = new ol.layer.Image({
             'FORMAT': 'image/png'
         },
         serverType: 'geoserver'
-    })
+    }),
+    visible: false
 });
 
 var provinsiLayer = new ol.layer.Image({
@@ -259,7 +260,7 @@ var polaKeretaJalurLayer = new ol.layer.Image({
         },
         serverType: 'geoserver'
     }),
-    serverType: 'geoserver'
+    visible: false
 });
 
 var polaPariwisataLayer = new ol.layer.Image({
@@ -353,13 +354,13 @@ var map = new ol.Map({
                 }),
             ]
         }),
-        petaDasar,
-        petaPola
+         petaPola,
+        petaDasar
     ],
     target: 'map',
     view: new ol.View({
       center: ol.proj.transform([107.5853139, -6.9840138], 'EPSG:4326', 'EPSG:3857'),
-      zoom: 11,
+      zoom: 13,
       minZoom: 9,
       maxZoom: 17
     })
