@@ -381,31 +381,6 @@ function displayInLayerSwitcher(b)
     mapbox.set('displayInLayerSwitcher', b);
 }
 
-kab = [
-"Kab. Ciamis",
-"Kab. Cianjur",
-"Kab. Cirebon",
-"Kab. Garut",
-"Kab. Indramayu",
-"Kab. Karawang",
-"Kab. Kuningan",
-"Kab. Majalengka",
-"Kab. Pangandaran",
-"Kab. Purwakarta",
-"Kab. Subang",
-"Kab. Sukabumi",
-"Kab. Sumedang",
-"Kab. Tasikmalaya",
-"Kota Bandung",
-"Kota Banjar",
-"Kota Bekasi",
-"Kota Bogor",
-"Kota Cimahi",
-"Kota Cirebon",
-"Kota Depok",
-"Kota Sukabumi",
-"Kota Tasikmalaya",
-];
 kec = [
 "Kecamatan Arjasari",
 "Kecamatan Baleendah",
@@ -440,4 +415,4 @@ kec = [
 "Kecamatan Soreang",
 ];
 $( "#cari_kecamatan" ).autocomplete({source: kec});
-$( "#cari_kabupaten" ).autocomplete({source: kab});
+$( "#cari_desa" ).autocomplete({source: kab});

@@ -1,17 +1,17 @@
-{% load static %}
+
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<link href="{% static 'bandungis/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
-<link href="{% static 'bandungis/lib/jquery/jquery-ui.css' %}" rel="stylesheet"/>
-<link href="{% static 'bandungis/lib/openlayers/css/ol.css' %}" rel="stylesheet"/>
-<link href="{% static 'bandungis/lib/ol3-extended/css/layerswitchercontrol.css' %}" rel="stylesheet"/>
-<link href="{% static 'bandungis/lib/ol3-extended/css/style.css' %}" rel="stylesheet"/>
-<script type="text/javascript" src="{% static 'bandungis/lib/jquery/jquery.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'bandungis/lib/jquery/jquery-ui.js' %}"></script>
-<script type="text/javascript" src="{% static 'bandungis/lib/bootstrap/js/bootstrap.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'bandungis/lib/openlayers/js/ol-debug.js' %}"></script>
-<script type="text/javascript" src="{% static 'bandungis/lib/ol3-extended/js/layerswitchercontrol.js' %}"></script>
+<link href="/static/bandungis/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/static/bandungis/lib/jquery/jquery-ui.css" rel="stylesheet"/>
+<link href="/static/bandungis/lib/openlayers/css/ol.css" rel="stylesheet"/>
+<link href="/static/bandungis/lib/ol3-extended/css/layerswitchercontrol.css" rel="stylesheet"/>
+<link href="/static/bandungis/lib/ol3-extended/css/style.css' %}" rel="stylesheet"/>
+<script type="text/javascript" src="/static/bandungis/lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/static/bandungis/lib/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="/static/bandungis/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/bandungis/lib/openlayers/js/ol-debug.js"></script>
+<script type="text/javascript" src="/static/bandungis/lib/ol3-extended/js/layerswitchercontrol.js"></script>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 </head>
 <!---->
@@ -28,9 +28,11 @@
             <div class="form-group">
                 <input class="form-control" type="text" id="cari_kecamatan" placeholder="Nama Kecamatan">
             </div>
-            <div class=form-group">
-                <input class="form-control" type="text" id="cari_kabupaten" placeholder="Nama Kabupaten">
+            <div class="form-group">
+                <input class="form-control" type="text" id="cari_Desa" placeholder="Nama Desa">
             </div>
+            <br/>
+            <button class="btn btn-primary" id="btn_cari">Cari</button>
         </form>
 
 
@@ -39,19 +41,22 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Pilih Peta</a></li>
                 <li><a href="#tab2" data-toggle="tab">Legenda</a></li>
+				<li><a href="#tab3" data-toggle="tab">Data Peruntukan</a></li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content" id="tablist">
                 <div class="tab-pane active" id="tab1">
                     <div class="layerSwitcher"></div>
                 </div>
                 <div class="tab-pane" id="tab2">
                     <img src="http://128.199.100.103:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=SIMTARU:pola_ruang"/>
                 </div>
+				<div class="tab-pane" id="tab3">
+				</div>
             </div>
         </div>
     </div>
     <div id="map" class="map" style="height:100%; margin-left:400px;"></div>
-    <script type="text/javascript" src="{% static 'bandungis/js/bandungis.js' %}"></script>
+    <script type="text/javascript" src="/static/bandungis/js/bandungis.js"></script>
     </div>
 <footer/>
 </body>
