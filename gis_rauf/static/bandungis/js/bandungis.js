@@ -380,39 +380,71 @@ function displayInLayerSwitcher(b)
 {
     mapbox.set('displayInLayerSwitcher', b);
 }
+// TODO: split files
+$.ajax({ 
+    url: 'getdataperuntukan.php',
+    type: 'post',
+    dataType: 'json',
+    success: function(result)
+    {
+        // return array of json
+        var src = $.map(result, function(a){
+            return a['kecamatan'];
+        });
+        $( "#cari_kecamatan" ).autocomplete({
+            source: src,
+            select: function(event, ui){ // Chaos gods perform their tricks here
+                kecamatan = ui.item.value;
+                $.ajax({ 
+                    url: 'getdataperuntukan.php',
+                    data: {"kecamatan": kecamatan},
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(result2){
+                        var src2 = $.map(result2, function(b){
+                            return b['desa'];
+                        });
+                        $("#cari_desa").autocomplete({
+                            source: src2,
+                            minLength: 0
+                        });
+                    },
+                    error: function (request, status, error) {
+                        console.log(request.responseText);
+                    }
+                });
+            }
+        });
+    }
+});
 
-kec = [
-"Kecamatan Arjasari",
-"Kecamatan Baleendah",
-"Kecamatan Banjaran",
-"Kecamatan Bojongsoang",
-"Kecamatan Cangkuang",
-"Kecamatan Cicalengka",
-"Kecamatan Cikancung",
-"Kecamatan Cilengkrang",
-"Kecamatan Cileunyi",
-"Kecamatan Cimaung",
-"Kecamatan Cimenyan",
-"Kecamatan Ciparay",
-"Kecamatan Ciwidey",
-"Kecamatan DayeuhKolot",
-"Kecamatan Ibun",
-"Kecamatan Katapang",
-"Kecamatan Kertasari",
-"Kecamatan Kutawaringin",
-"Kecamatan Majalaya",
-"Kecamatan Margaasih",
-"Kecamatan Margahayu",
-"Kecamatan Nagreg",
-"Kecamatan Pacet",
-"Kecamatan Pameungpeuk",
-"Kecamatan Pangalengan",
-"Kecamatan Paseh",
-"Kecamatan Pasirjambu",
-"Kecamatan Rancabali",
-"Kecamatan Rancaekek",
-"Kecamatan Solokanjeruk",
-"Kecamatan Soreang",
-];
-$( "#cari_kecamatan" ).autocomplete({source: kec});
-$( "#cari_desa" ).autocomplete({source: kab});
+$('#btn_cari').click(function(e){
+    var desa = $('#cari_desa').val();
+    var kecamatan = $('#cari_kecamatan').val();
+    if (desa.length == 0 | kecamatan.length == 0){
+        alert('Harap mengisi nama Kecamatan dan Desa');
+    }
+    else {
+        $.ajax({
+            url: 'getdataperuntukan.php',
+            data: {"kecamatan": kecamatan, "desa": desa},
+            type: 'post',
+            dataType: 'json',
+            error: function (request, status, error) {
+                        console.log(request.responseText);
+                    },
+            success: function(r){
+                // Reset active tabs
+                $('#tablist div').removeClass('active');
+                // point to desired tab by making it active
+                $('#tab3').empty().addClass('active').append('<strong>Data Peruntukan untuk '+kecamatan+', Desa '+desa+'</strong>');
+                // Pengisian data
+                $('#tab3').append('<table class="table table-condensed"><thead><tr><td>Peruntukan</td><td>Luas</td></tr></thead><tbody></tbody></table>');
+                for (var i = 0; i < r.length; i++){
+                    $('#tab3 table tbody').append('<tr><td>'+r[i]['pola']+'</td><td>'+r[i]['luas']+'</td></tr>');
+                }
+            }
+        });
+    }
+    e.preventDefault();
+});
