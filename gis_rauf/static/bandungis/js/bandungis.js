@@ -415,7 +415,10 @@ $.ajax({
                 });
             }
         });
-    }
+    },
+    error: function (request, status, error) {
+                        console.log(request.responseText);
+                    }
 });
 
 $('#btn_cari').click(function(e){
