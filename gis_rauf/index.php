@@ -49,32 +49,6 @@
                     <img src="http://128.199.100.103:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=SIMTARU:pola_ruang"/>
                 </div>
 				<div class="tab-pane" id="tab3" style="heigth: 200px; overflow-y: scroll;">
-                    <?php
-                        // Connecting, selecting database
-                        $dbconn = pg_connect("host=localhost dbname=djangis user=fauzan")
-                            or die('Could not connect: ' . pg_last_error());
-
-                        // Performing SQL query
-                        $query = 'SELECT kecamatan,desa,pola as Peruntukan,luas FROM data_peruntukan';
-                        $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-
-                        // Printing results in HTML
-                        echo "<table class='table-stripped'>\n";
-                        while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                            echo "\t<tr>\n";
-                            foreach ($line as $col_value) {
-                                echo "\t\t<td>$col_value</td>\n";
-                            }
-                            echo "\t</tr>\n";
-                        }
-                        echo "</table>\n";
-
-                        // Free resultset
-                        pg_free_result($result);
-
-                        // Closing connection
-                        pg_close($dbconn);
-                    ?>
 				</div>
             </div>
         </div>
