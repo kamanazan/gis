@@ -12,6 +12,11 @@
         $kecamatan = $_POST['kecamatan'];
         $query = "SELECT DISTINCT desa FROM data_peruntukan WHERE kecamatan='".$kecamatan."';";
     }
+    elseif(isset($_POST['long']) and isset($_POST['lat'])){
+        $long = $_POST['long'];
+        $lat = $_POST['lat'];
+        $query = "SELECT kecamatan,desa,pola,luas FROM data_peruntukan WHERE ST_Contains(ST_Transform(ST_SetSRID(geom, 32748), 3857), ST_GeometryFromText('POINT(".$long." ".$lat.")', 3857));";
+    }
     else {
         $query = "SELECT DISTINCT kecamatan FROM data_peruntukan;";
     };

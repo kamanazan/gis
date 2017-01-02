@@ -338,6 +338,36 @@ var petaPola = new ol.layer.Group({
     layers: [polaRuangLayer, polaTambangLayer, polaEnergiIndukLayer, polaAreaPariwisataLayer, polaKeretaJalurLayer]
 })
 
+ /**
+       * Elements that make up the popup.
+       */
+      var container = document.getElementById('popup');
+      var content = document.getElementById('popup-content');
+      var closer = document.getElementById('popup-closer');
+
+
+      /**
+       * Create an overlay to anchor the popup to the map.
+       */
+      var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+        element: container,
+        autoPan: true,
+        autoPanAnimation: {
+          duration: 250
+        }
+      }));
+
+
+      /**
+       * Add a click handler to hide the popup.
+       * @return {boolean} Don't follow the href.
+       */
+      closer.onclick = function() {
+        overlay.setPosition(undefined);
+        closer.blur();
+        return false;
+      };
+
 var map = new ol.Map({
     layers: [
         new ol.layer.Group({
@@ -357,6 +387,7 @@ var map = new ol.Map({
          petaPola,
         petaDasar
     ],
+     overlays: [overlay],
     target: 'map',
     view: new ol.View({
       center: ol.proj.transform([107.5853139, -6.9840138], 'EPSG:4326', 'EPSG:3857'),
@@ -365,6 +396,31 @@ var map = new ol.Map({
       maxZoom: 17
     })
 });
+ /**
+       * Add a click handler to the map to render the popup.
+       */
+      map.on('singleclick', function(evt) {
+        var coordinate = evt.coordinate;
+        $.ajax({
+            url: 'getdataperuntukan.php',
+            data: {"long": coordinate[0], "lat": coordinate[1]},
+            type: 'post',
+            dataType: 'json',
+            error: function (request, status, error) {
+                        console.log(request.responseText);
+                    },
+            success: function(r){
+                if (r.length > 0){
+                    for (var i = 0; i < r.length; i++){
+                        content.innerHTML = '<p><strong>'+r[i]['kecamatan']+', Desa '+r[i]['desa']+'</strong></p><p>Peruntukan: '+r[i]['pola']+'</p><p>Luas: '+r[i]['luas']+'</p><code>' + coordinate +'</code>';
+                    }
+                } else {
+                    content.innerHTML = '<p>Tidak ada data peruntukan di koordinat ini</p><code>' + coordinate +'</code>';
+                };
+              overlay.setPosition(coordinate);  
+            }
+        });
+      });
 // Add a layer switcher outside the map
 var switcher = new ol.control.LayerSwitcher({
     target:$(".layerSwitcher").get(0),
