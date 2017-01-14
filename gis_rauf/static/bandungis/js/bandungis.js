@@ -339,35 +339,48 @@ var petaPola = new ol.layer.Group({
 })
 
  /**
-       * Elements that make up the popup.
-       */
-      var container = document.getElementById('popup');
-      var content = document.getElementById('popup-content');
-      var closer = document.getElementById('popup-closer');
+  * Elements that make up the popup.
+  */
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
 
 
-      /**
-       * Create an overlay to anchor the popup to the map.
-       */
-      var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
-        element: container,
-        autoPan: true,
-        autoPanAnimation: {
-          duration: 250
-        }
-      }));
+/**
+ * Create an overlay to anchor the popup to the map.
+ */
+var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+element: container,
+autoPan: true,
+autoPanAnimation: {
+    duration: 250
+}
+}));
 
 
-      /**
-       * Add a click handler to hide the popup.
-       * @return {boolean} Don't follow the href.
-       */
-      closer.onclick = function() {
-        overlay.setPosition(undefined);
-        closer.blur();
-        return false;
-      };
+/**
+ * Add a click handler to hide the popup.
+ * @return {boolean} Don't follow the href.
+ */
+closer.onclick = function() {
+    overlay.setPosition(undefined);
+    closer.blur();
+    return false;
+};
 
+var mousePositionControl = new ol.control.MousePosition({
+    className: 'ol-custom-mouseposition',
+    coordinateFormat: ol.coordinate.createStringXY(4),
+    projection: 'EPSG:4326',
+    undefinedHTML: '&nbsp;'
+});
+
+var overviewMapControl = new ol.control.OverviewMap({
+    className: 'ol-overviewmap ol-custom-overviewmap',
+    collapseLabel: '\u00BB',
+    label: '\u00AB',
+    collapsed: false
+});
 var map = new ol.Map({
     layers: [
         new ol.layer.Group({
@@ -387,7 +400,13 @@ var map = new ol.Map({
          petaPola,
         petaDasar
     ],
-     overlays: [overlay],
+    controls: [
+        mousePositionControl,
+        new ol.control.ZoomSlider(),
+        new ol.control.ScaleLine(),
+        overviewMapControl
+    ],
+    overlays: [overlay],
     target: 'map',
     view: new ol.View({
       center: ol.proj.transform([107.5853139, -6.9840138], 'EPSG:4326', 'EPSG:3857'),
@@ -397,30 +416,35 @@ var map = new ol.Map({
     })
 });
  /**
-       * Add a click handler to the map to render the popup.
-       */
-      map.on('singleclick', function(evt) {
-        var coordinate = evt.coordinate;
-        $.ajax({
-            url: 'getdataperuntukan.php',
-            data: {"long": coordinate[0], "lat": coordinate[1]},
-            type: 'post',
-            dataType: 'json',
-            error: function (request, status, error) {
-                        console.log(request.responseText);
-                    },
-            success: function(r){
-                if (r.length > 0){
-                    for (var i = 0; i < r.length; i++){
-                        content.innerHTML = '<p><strong>'+r[i]['kecamatan']+', Desa '+r[i]['desa']+'</strong></p><p>Peruntukan: '+r[i]['pola']+'</p><p>Luas: '+r[i]['luas']+'</p><code>' + coordinate +'</code>';
-                    }
-                } else {
-                    content.innerHTML = '<p>Tidak ada data peruntukan di koordinat ini</p><code>' + coordinate +'</code>';
-                };
-              overlay.setPosition(coordinate);  
-            }
-        });
-      });
+ * Add a click handler to the map to render the popup.
+ */
+map.on('singleclick', function(evt) {
+    // proyeksi coordinate 3857 untuk internal map
+    var coordinate = evt.coordinate;
+    map.getView().setCenter(coordinate);
+    overlay.setPosition(coordinate);
+    content.innerHTML = '<code>loading...</code>';
+    // untuk interface pake proyeksi 4326
+    var newpos = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326') 
+    $.ajax({
+        url: 'getdataperuntukan.php',
+        data: {"long": coordinate[0], "lat": coordinate[1]},
+        type: 'post',
+        dataType: 'json',
+        error: function (request, status, error) {
+                    console.log(request.responseText);
+                },
+        success: function(r){
+            if (r.length > 0){
+                for (var i = 0; i < r.length; i++){
+                    content.innerHTML = '<p><strong>'+r[i]['kecamatan']+'</strong></p><p><strong>'+'Desa '+r[i]['desa']+'</strong></p><p>Peruntukan: '+r[i]['pola']+'</p><p>Luas: '+r[i]['luas']+'</p><code>' + newpos +'</code>';
+                }
+            } else {
+                content.innerHTML = '<p>Tidak ada data peruntukan di koordinat ini</p><code>' + newpos +'</code>';
+            };
+        }
+    });
+});
 // Add a layer switcher outside the map
 var switcher = new ol.control.LayerSwitcher({
     target:$(".layerSwitcher").get(0),
@@ -494,14 +518,22 @@ $('#btn_cari').click(function(e){
                     },
             success: function(r){
                 // Reset active tabs
+                $('.tabbable li').removeClass('active');
+                $('#tabcontent').addClass('active')
                 $('#tablist div').removeClass('active');
                 // point to desired tab by making it active
-                $('#tab3').empty().addClass('active').append('<strong>Data Peruntukan untuk '+kecamatan+', Desa '+desa+'</strong>');
-                // Pengisian data
-                $('#tab3').append('<table class="table table-condensed"><thead><tr><td>Peruntukan</td><td>Luas</td></tr></thead><tbody></tbody></table>');
-                for (var i = 0; i < r.length; i++){
-                    $('#tab3 table tbody').append('<tr><td>'+r[i]['pola']+'</td><td>'+r[i]['luas']+'</td></tr>');
+                console.log(r.length);
+                if (typeof r.length == "undefined"){
+                    $('#tab3').empty().addClass('active').append('<strong>Tidak ada data</strong>');
+                } else {
+                    $('#tab3').empty().addClass('active').append('<strong>Data Peruntukan untuk '+kecamatan+', Desa '+desa+'</strong>');
+                    // Pengisian data
+                    $('#tab3').append('<table class="table table-condensed"><thead><tr><td>Peruntukan</td><td>Luas</td></tr></thead><tbody></tbody></table>');
+                    for (var i = 0; i < r.length; i++){
+                        $('#tab3 table tbody').append('<tr><td>'+r[i]['pola']+'</td><td>'+r[i]['luas']+'</td></tr>');
+                    }
                 }
+                
             }
         });
     }

@@ -7,7 +7,7 @@
     if(isset($_POST['kecamatan']) and isset($_POST['desa'])){
         $kecamatan = $_POST['kecamatan'];
         $desa = $_POST['desa'];
-        $query = "SELECT pola,luas FROM data_peruntukan WHERE kecamatan='".$kecamatan."' AND desa='".$desa."';";
+        $query = "SELECT ST_AsText(ST_Transform(ST_SetSRID(ST_Centroid(geom), 32748), 3857)) as posisi,pola,luas FROM data_peruntukan WHERE kecamatan='".$kecamatan."' AND desa='".$desa."';";
     }
     elseif(isset($_POST['kecamatan'])){
         $kecamatan = $_POST['kecamatan'];
@@ -16,6 +16,10 @@
     elseif(isset($_POST['long']) and isset($_POST['lat'])){
         $long = $_POST['long'];
         $lat = $_POST['lat'];
+        /*
+         * Dari file .shp proyeksinya menggunakan 32748 sementara dari openlayers proyeksinya 3857 jadi di transformasikan dulu
+         * dari 32748 ke 3857
+         */
         $query = "SELECT kecamatan,desa,pola,luas FROM data_peruntukan WHERE ST_Contains(ST_Transform(ST_SetSRID(geom, 32748), 3857), ST_GeometryFromText('POINT(".$long." ".$lat.")', 3857));";
     }
     else {
