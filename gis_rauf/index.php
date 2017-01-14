@@ -90,7 +90,10 @@
                     <div class="layerSwitcher"></div>
                 </div>
                 <div class="tab-pane" id="tab2">
-                    <img src="http://128.199.100.103:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=SIMTARU:pola_ruang"/>
+                    <?php
+                        require('config.php');
+                        echo '<img src="'.GEOURL.'/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=SIMTARU:pola_ruang"/>';
+                    ?>
                 </div>
 				<div class="tab-pane" id="tab3" style="heigth: 200px; overflow-y: scroll;">
 				</div>
@@ -102,6 +105,9 @@
       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
       <div id="popup-content"></div>
     </div>
+   <script>
+   var geourl = "<?php echo GEOURL;?>";
+   </script>
     <script type="text/javascript" src="/static/bandungis/js/bandungis.js"></script>
     </div>
 <footer/>
