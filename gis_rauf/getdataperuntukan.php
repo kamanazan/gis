@@ -1,7 +1,7 @@
 <?php
     require('config.php');
     // Connecting, selecting database
-    $dbconn = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER)
+    $dbconn = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER."password=".DB_PWD)
         or die('Could not connect: ' . pg_last_error());
     // parameter menentukan jenis query yang akan dijalankan
     if(isset($_POST['kecamatan']) and isset($_POST['desa'])){
