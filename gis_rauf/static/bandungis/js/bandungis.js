@@ -379,7 +379,16 @@ var overviewMapControl = new ol.control.OverviewMap({
     className: 'ol-overviewmap ol-custom-overviewmap',
     collapseLabel: '\u00BB',
     label: '\u00AB',
-    collapsed: false
+    collapsed: false,
+    layers: [
+        new ol.layer.Tile({
+            title: 'Stamen - Water color',
+            type: 'base',
+            source: new ol.source.Stamen({
+                layer: 'terrain'
+            })
+        }),
+    ]
 });
 var map = new ol.Map({
     layers: [

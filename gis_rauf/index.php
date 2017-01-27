@@ -16,11 +16,6 @@
 <link href="/static/bandungis/css/ol_custom.css" rel="stylesheet"/>
 </head>
 <body>
-    <nav role="navigation" class="navbar navbar-default">
-        <div class="navbar-header">
-            <a href="#" class="navbar-brand">PETA DASAR</a>
-        </div>
-    </nav>
     <div>
     <div style="position:absolute; width:380px; height: 100%; float:left; padding-left:10px; padding-right:10px;">
         <form>
@@ -56,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div id="map" class="map" style="height:87%; margin-left:400px;"></div>
+    <div id="map" class="map" style="height:45%; margin-left:400px;"></div>
     <div id="popup" class="ol-popup">
       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
       <div id="popup-content"></div>
