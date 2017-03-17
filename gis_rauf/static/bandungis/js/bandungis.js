@@ -510,7 +510,49 @@ $.ajax({
                     }
 });
 
-$('#btn_cari').click(function(e){
+$('#tipe_pencarian').change(function() {
+    var val = $(this).val();
+    $('#nama').addClass('hidden');
+    $('#koordinat').addClass('hidden');
+    $('#' + val).removeClass('hidden');
+}).change();
+
+$('#btn_cari_koordinat').click(function(e){
+    var long =$('#cari_longitude').val();
+    var lat = $('#cari_latitude').val();
+    if (long.length == 0 | lat.length == 0){
+        alert('Harap mengisi koordinat');
+    }
+    else {
+        var newpos = ol.proj.transform([ parseFloat(long),  parseFloat(lat)], 'EPSG:4326', 'EPSG:3857');
+        map.getView().setCenter(newpos);
+        overlay.setPosition(newpos);
+        content.innerHTML = '<code>loading...</code>';
+        $.ajax({
+            url: 'getdataperuntukan.php',
+            data: {"long": newpos[0], "lat":newpos[1]},
+            type: 'post',
+            dataType: 'json',
+            error: function (request, status, error) {
+                        console.log(request);
+                        console.log(status);
+                        console.log(error);
+                    },
+            success: function(r){
+                if (r.length > 0){
+                    for (var i = 0; i < r.length; i++){
+                        content.innerHTML = '<p><strong>'+r[i]['kecamatan']+'</strong></p><p><strong>'+'Desa '+r[i]['desa']+'</strong></p><p>Peruntukan: '+r[i]['pola']+'</p><p>Luas: '+r[i]['luas']+'</p><code>' + newpos +'</code>';
+                    }
+                } else {
+                    content.innerHTML = '<p>Tidak ada data peruntukan di koordinat ini</p><code>' + newpos +'</code>';
+                };
+            }
+        });
+    }
+    e.preventDefault();
+});
+
+$('#btn_cari_nama').click(function(e){
     var desa = $('#cari_desa').val();
     var kecamatan = $('#cari_kecamatan').val();
     if (desa.length == 0 | kecamatan.length == 0){

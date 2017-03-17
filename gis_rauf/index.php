@@ -18,7 +18,17 @@
 <body>
     <div>
     <div style="position:absolute; width:380px; height: 100%; float:left; padding-left:10px; padding-right:10px;">
-        <form>
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="tipe_pencarian">Jenis Pencarian</label>
+                <select id="tipe_pencarian">
+                    <option value="nama">Nama Daerah</option> 
+                    <option value="koordinat" selected="selected">Koordinat</option>
+                </select>
+            </div>
+        </div>
+        <br/>
+        <form id="nama" class="hidden">
             <!-- search box -->
             <div class="form-group">
                 <input class="form-control" type="text" id="cari_kecamatan" placeholder="Nama Kecamatan">
@@ -27,7 +37,18 @@
                 <input class="form-control" type="text" id="cari_desa" placeholder="Nama Desa">
             </div>
             <br/>
-            <button class="btn btn-primary" id="btn_cari">Cari</button>
+            <button class="btn btn-primary" id="btn_cari_nama">Cari</button>
+        </form>
+         <form id="koordinat" class="hidden">
+            <!-- search box -->
+            <div class="form-group">
+                <input class="form-control" type="text" id="cari_longitude" placeholder="Longitude">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" id="cari_latitude" placeholder="Latitude">
+            </div>
+            <br/>
+            <button class="btn btn-primary" id="btn_cari_koordinat">Cari</button>
         </form>
         <!-- tabbable navigation -->
         <div class="tabbable">
@@ -51,7 +72,7 @@
             </div>
         </div>
     </div>
-    <div id="map" class="map" style="height:45%; margin-left:400px;"></div>
+    <div id="map" class="map" style="height:75%; margin-left:400px;"></div>
     <div id="popup" class="ol-popup">
       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
       <div id="popup-content"></div>
