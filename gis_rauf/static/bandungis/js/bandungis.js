@@ -482,7 +482,7 @@ $.ajax({
         });
         $( "#cari_kecamatan" ).autocomplete({
             source: src,
-            select: function(event, ui){ // Chaos gods perform their tricks here
+            select: function(event, ui){
                 kecamatan = ui.item.value;
                 $.ajax({ 
                     url: 'getdataperuntukan.php',
@@ -527,6 +527,7 @@ $('#btn_cari_koordinat').click(function(e){
         var newpos = ol.proj.transform([ parseFloat(long),  parseFloat(lat)], 'EPSG:4326', 'EPSG:3857');
         map.getView().setCenter(newpos);
         overlay.setPosition(newpos);
+        map.getView().setZoom(17);
         content.innerHTML = '<code>loading...</code>';
         $.ajax({
             url: 'getdataperuntukan.php',
@@ -541,7 +542,7 @@ $('#btn_cari_koordinat').click(function(e){
             success: function(r){
                 if (r.length > 0){
                     for (var i = 0; i < r.length; i++){
-                        content.innerHTML = '<p><strong>'+r[i]['kecamatan']+'</strong></p><p><strong>'+'Desa '+r[i]['desa']+'</strong></p><p>Peruntukan: '+r[i]['pola']+'</p><p>Luas: '+r[i]['luas']+'</p><code>' + newpos +'</code>';
+                        content.innerHTML = '<p><strong>'+r[i]['kecamatan']+'</strong></p><p><strong>'+'Desa '+r[i]['desa']+'</strong></p><p>Peruntukan: '+r[i]['pola']+'</p><p>Luas(m<sup>2</sup>): '+r[i]['luas']+'</p><code>' + long+','+lat +'</code>';
                     }
                 } else {
                     content.innerHTML = '<p>Tidak ada data peruntukan di koordinat ini</p><code>' + newpos +'</code>';
@@ -573,13 +574,12 @@ $('#btn_cari_nama').click(function(e){
                 $('#tabcontent').addClass('active')
                 $('#tablist div').removeClass('active');
                 // point to desired tab by making it active
-                console.log(r.length);
                 if (typeof r.length == "undefined"){
                     $('#tab3').empty().addClass('active').append('<strong>Tidak ada data</strong>');
                 } else {
                     $('#tab3').empty().addClass('active').append('<strong>Data Peruntukan untuk '+kecamatan+', Desa '+desa+'</strong>');
                     // Pengisian data
-                    $('#tab3').append('<table class="table table-condensed"><thead><tr><td>Peruntukan</td><td>Luas</td></tr></thead><tbody></tbody></table>');
+                    $('#tab3').append('<table class="table table-condensed"><thead><tr><td>Peruntukan</td><td>Luas(m<sup>2</sup>)</td></tr></thead><tbody></tbody></table>');
                     for (var i = 0; i < r.length; i++){
                         $('#tab3 table tbody').append('<tr><td>'+r[i]['pola']+'</td><td>'+r[i]['luas']+'</td></tr>');
                     }
