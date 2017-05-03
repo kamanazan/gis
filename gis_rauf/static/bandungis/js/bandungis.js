@@ -337,7 +337,16 @@ var petaPola = new ol.layer.Group({
     openInLayerSwitcher: false,
     layers: [polaRuangLayer, polaTambangLayer, polaEnergiIndukLayer, polaAreaPariwisataLayer, polaKeretaJalurLayer]
 })
-
+/*
+lg = http://127.0.0.1:8080/geoserver/rest/workspaces/SIMTARU/layergroups/peta_rancang_pola.json
+group_title = lg['layerGroup']['title']
+list_layer = lg['layerGroup']['publishables']['published']
+*/
+$.ajax({ 
+    url: 'http://admin:geoserver@127.0.0.1:8080/geoserver/rest/workspaces/SIMTARU/layergroups/peta_rancang_pola.json',
+}).then(function(data){
+    console.log(data);
+});
  /**
   * Elements that make up the popup.
   */
@@ -390,20 +399,16 @@ var overviewMapControl = new ol.control.OverviewMap({
         }),
     ]
 });
+ var raster = new ol.layer.Tile({
+        source: new ol.source.OSM()
+      });
 var map = new ol.Map({
     layers: [
         new ol.layer.Group({
             'title': 'Petanya',
             displayInLayerSwitcher: false,
             layers: [
-                new ol.layer.Tile({
-                    title: 'Stamen - Water color',
-                    displayInLayerSwitcher: false,
-                    type: 'base',
-                    source: new ol.source.Stamen({
-                        layer: 'terrain'
-                    })
-                }),
+                raster,
             ]
         }),
          petaPola,

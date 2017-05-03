@@ -13,6 +13,7 @@
 <script type="text/javascript" src="/static/bandungis/lib/openlayers/js/ol-debug.js"></script>
 <script type="text/javascript" src="/static/bandungis/lib/ol3-extended/js/layerswitchercontrol.js"></script>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
 <link href="/static/bandungis/css/ol_custom.css" rel="stylesheet"/>
 </head>
 <body>
@@ -50,6 +51,7 @@
             <br/>
             <button class="btn btn-primary" id="btn_cari_koordinat">Cari</button>
         </form>
+        <button id="export-pdf">Export PDF</button>
         <!-- tabbable navigation -->
         <div class="tabbable">
             <ul class="nav nav-tabs">
@@ -81,6 +83,7 @@
         var geourl = "<?php echo GEOURL;?>";
     </script>
     <script type="text/javascript" src="/static/bandungis/js/bandungis.js"></script>
+    <script type="text/javascript" src="/static/bandungis/js/exportpdf.js"></script>
     </div>
 </body>
 </html>
