@@ -26,7 +26,6 @@ exportButton.addEventListener('click', function() {
     var height = Math.round(dim[1] * resolution / 25.4);
     var size = /** @type {ol.Size} */ (map.getSize());
     var extent = map.getView().calculateExtent(size);
-    console.log(extent);
 
     var source = raster.getSource();
     
@@ -36,16 +35,13 @@ exportButton.addEventListener('click', function() {
 
     var tileLoadEnd = function() {
         ++loaded;
-        console.log(loaded);
-        console.log(loading);
-        console.log(loading === loaded);
         if (loading === loaded) {
         var canvas = this;
         window.setTimeout(function() {
             loading = 0;
             loaded = 0;
             var data = canvas.toDataURL('image/png');
-            var pdf = new jsPDF('landscape', undefined, format);
+            var pdf = new jsPDF('landscape', undefined, dim);
             pdf.addImage(data, 'JPEG', 0, 0, dim[0], dim[1]);
             pdf.save('map.pdf');
             source.un('tileloadstart', tileLoadStart);
@@ -61,7 +57,6 @@ exportButton.addEventListener('click', function() {
     };
 
     map.once('postcompose', function(event) {
-        console.log("start composing");
         source.on('tileloadstart', tileLoadStart);
         source.on('tileloadend', tileLoadEnd, event.context.canvas);
         source.on('tileloaderror', tileLoadEnd, event.context.canvas);

@@ -3,36 +3,39 @@
 var kabupatenLayer = new ol.layer.Image({
     title: 'Kabupaten',
     source:  new ol.source.ImageWMS({
-            url: geourl+'/geoserver/wms',
+            url: geourl+'/wms',
             params: {
                 'LAYERS': 'SIMTARU:kabupaten',
                 'FORMAT': 'image/png'
             },
-            serverType: 'geoserver'
+            serverType: 'geoserver',
+            crossOrigin: '*'
     })
 });
 
 var kabupatenBatasLayer = new ol.layer.Image({
     title: 'Batas Kabupaten',
     source:  new ol.source.ImageWMS({
-            url: geourl+'/geoserver/wms',
+            url: geourl+'/wms',
             params: {
                 'LAYERS': 'SIMTARU:kabupaten_batas',
                 'FORMAT': 'image/png'
             },
-            serverType: 'geoserver'
+            serverType: 'geoserver',
+            crossOrigin: '*'
     })
 });
 
 var kecamatanLayer = new ol.layer.Image({
     title: 'Kecamatan',
     source:  new ol.source.ImageWMS({
-            url: geourl+'/geoserver/wms',
+            url: geourl+'/wms',
             params: {
                 'LAYERS': 'SIMTARU:kecamatan',
                 'FORMAT': 'image/png'
             },
-            serverType: 'geoserver'
+            serverType: 'geoserver',
+            crossOrigin: '*'
     }),
     visible: true
 });
@@ -40,12 +43,13 @@ var kecamatanLayer = new ol.layer.Image({
 var kecamatanBatasLayer = new ol.layer.Image({
     title: 'Batas Kecamatan',
     source:  new ol.source.ImageWMS({
-            url: geourl+'/geoserver/wms',
+            url: geourl+'/wms',
             params: {
                 'LAYERS': 'SIMTARU:kecamatan_batas',
                 'FORMAT': 'image/png'
             },
-            serverType: 'geoserver'
+            serverType: 'geoserver',
+            crossOrigin: '*'
     }),
     visible: false
 });
@@ -53,12 +57,13 @@ var kecamatanBatasLayer = new ol.layer.Image({
 var desaLayer = new ol.layer.Image({
     title: 'Desa',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:desa',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     }),
     visible: false
 });
@@ -66,24 +71,26 @@ var desaLayer = new ol.layer.Image({
 var desaBatasLayer = new ol.layer.Image({
     title: 'Batas Desa',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:desa_batas',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var jalanLayer = new ol.layer.Image({
     title: 'Jalan',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:jalan',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     }),
     visible: false
 });
@@ -91,36 +98,39 @@ var jalanLayer = new ol.layer.Image({
 var provinsiLayer = new ol.layer.Image({
     title: 'Provinsi',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:provinsi',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var sungaiLayer = new ol.layer.Image({
     title: 'Sungai',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:sungai',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var pemerintahanLayer = new ol.layer.Image({
     title: 'Pusat Pemerintahan',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pemerintahan',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     }),
     visible: false
 });
@@ -130,12 +140,13 @@ var pemerintahanLayer = new ol.layer.Image({
 var polaAreaPariwisataLayer = new ol.layer.Image({
     title: 'Area Pariwisata',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_area_pariwisata',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     }),
     visible: false
 });
@@ -143,24 +154,26 @@ var polaAreaPariwisataLayer = new ol.layer.Image({
 var polaSungaiLayer = new ol.layer.Image({
     title: 'Sungai',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_aliran_sungai',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaDesaLayer = new ol.layer.Image({
     title: 'Desa',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_desa',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     }),
     visible: false
 });
@@ -168,24 +181,26 @@ var polaDesaLayer = new ol.layer.Image({
 var polaDesaBatasLayer = new ol.layer.Image({
     title: 'Batas Desa',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_desa_batas',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaEnergiIndukLayer = new ol.layer.Image({
     title: 'Energi Induk',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_energi_induk',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     }),
     visible: false
 });
@@ -193,72 +208,78 @@ var polaEnergiIndukLayer = new ol.layer.Image({
 var polaJalanLayer = new ol.layer.Image({
     title: 'Jalan',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_jalan',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaKabupatenLayer = new ol.layer.Image({
     title: 'Kabupaten',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_kabupaten',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaKabupatenBatasLayer = new ol.layer.Image({
     title: 'Batas Kabupaten',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_kabupaten_batas',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaKecamatanLayer = new ol.layer.Image({
     title: 'Kecamatan',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_kecamatan',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaKecamatanBatasLayer = new ol.layer.Image({
     title: 'Batas Kecamatan',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_kecamatan_batas',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaKeretaJalurLayer = new ol.layer.Image({
     title: 'Jalur Kereta Api',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_kereta_jalur',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     }),
     visible: false
 });
@@ -266,60 +287,65 @@ var polaKeretaJalurLayer = new ol.layer.Image({
 var polaPariwisataLayer = new ol.layer.Image({
     title: 'Pariwisata',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMATARU:pola_pariwisata',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaProvinsiLayer = new ol.layer.Image({
     title: 'Provinsi',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_provinsi',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaPemerintahanLayer = new ol.layer.Image({
     title: 'Pemerintahan',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_pemerintahan',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaRuangLayer = new ol.layer.Image({
     title: 'Ruang',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_ruang',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     })
 });
 
 var polaTambangLayer = new ol.layer.Image({
     title: 'Tambang',
     source: new ol.source.ImageWMS({
-        url: geourl+'/geoserver/wms',
+        url: geourl+'/wms',
         params: {
             'LAYERS': 'SIMTARU:pola_tambang',
             'FORMAT': 'image/png'
         },
-        serverType: 'geoserver'
+        serverType: 'geoserver',
+        crossOrigin: '*'
     }),
     visible: false
 });
@@ -342,11 +368,6 @@ lg = http://127.0.0.1:8080/geoserver/rest/workspaces/SIMTARU/layergroups/peta_ra
 group_title = lg['layerGroup']['title']
 list_layer = lg['layerGroup']['publishables']['published']
 */
-$.ajax({ 
-    url: 'http://admin:geoserver@127.0.0.1:8080/geoserver/rest/workspaces/SIMTARU/layergroups/peta_rancang_pola.json',
-}).then(function(data){
-    console.log(data);
-});
  /**
   * Elements that make up the popup.
   */
