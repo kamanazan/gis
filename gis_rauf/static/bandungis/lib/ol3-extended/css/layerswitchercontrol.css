@@ -151,7 +151,7 @@
 {	display: inline-block;
 	height: 1.4em;
 	max-width: 12em;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	padding: 0 0.2em 0 1.7em;

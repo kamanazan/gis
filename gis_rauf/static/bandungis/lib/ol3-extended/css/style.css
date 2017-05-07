@@ -36,7 +36,8 @@ h2
 }
 
 .layerSwitcher
-{	display:inline-block;
+/*{	display:inline-block;*/
+{
 	background:#cdf;
 	padding:0.5em;
 	overflow-y: scroll;
