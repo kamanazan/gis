@@ -433,7 +433,15 @@ var map = new ol.Map({
             ]
         }),
          petaPola,
-        petaDasar
+        petaDasar,
+        petaRencanaAir,
+        petaLahan,
+        petaEnergi,
+        petaPemukiman,
+        petaTelekomunikasi,
+        petaTransportasiDarat,
+        petaTransportasiKereta,
+        petaTransportasiUdara,
     ],
     controls: [
         mousePositionControl,

@@ -82,6 +82,7 @@
     <script>
         var geourl = "<?php echo GEOURL;?>";
     </script>
+    <script type="text/javascript" src="static/bandungis/js/layer.js"></script>
     <script type="text/javascript" src="static/bandungis/js/bandungis.js"></script>
     <script type="text/javascript" src="static/bandungis/js/exportpdf.js"></script>
     </div>
